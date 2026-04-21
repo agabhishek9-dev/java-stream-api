@@ -1,1 +1,25 @@
+package intermediate;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.zip.CheckedOutputStream;
+
+public class MostFrequentCharacter {
+    public static void main(String[] args) {
+        String input = "banana";
+
+        Map<Character, Long> collect = input.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(
+                        Function.identity(), Collectors.counting()
+                ));
+        System.out.println(collect);
+
+        Map.Entry<Character, Long> characterLongEntry = collect.entrySet().stream()
+                .max(Map.Entry.comparingByValue()).orElseThrow();
+        System.out.println(characterLongEntry);
+    }
+}
 
